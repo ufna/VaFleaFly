@@ -13,6 +13,8 @@ AVffPawn::AVffPawn(const FObjectInitializer& ObjectInitializer)
 {
 	PawnMovement = CreateDefaultSubobject<UVffPawnMovementComponent>(PawnMovementComponentName);
 	PawnMovement->SetIsReplicated(true);		// Enable replication by default
+	// Use SetUpdatedComponent() function in your pawn instead
+	// PawnMovement->UpdatedComponent = ...;
 }
 
 
