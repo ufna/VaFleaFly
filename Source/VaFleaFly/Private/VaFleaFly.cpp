@@ -2,6 +2,8 @@
 
 #include "VaFleaFly.h"
 
+#include "VffCommon.h"
+
 #define LOCTEXT_NAMESPACE "FVaFleaFlyModule"
 
 void FVaFleaFlyModule::StartupModule()
@@ -18,3 +20,5 @@ void FVaFleaFlyModule::ShutdownModule()
 #undef LOCTEXT_NAMESPACE
 	
 IMPLEMENT_MODULE(FVaFleaFlyModule, VaFleaFly)
+
+DEFINE_LOG_CATEGORY(LogVaFleaFly);

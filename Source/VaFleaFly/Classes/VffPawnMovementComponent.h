@@ -21,7 +21,33 @@ protected:
 
 
 	//////////////////////////////////////////////////////////////////////////
-	// Controls and behaviours
+	// Steering Behavior handlers
+
+protected:
+	/**  */
+	
+
+
+	//////////////////////////////////////////////////////////////////////////
+	// Path control
+
+public:
+	/** [Debug] Force move to location */
+	UFUNCTION(BlueprintCallable, Category = "Vff|Movement")
+	void RequestDirectMoveToLocation(const FVector& Location);
+
+protected:
+	/** Desired destionation location */
+	FVector DesiredPathPoint;
+
+
+	//////////////////////////////////////////////////////////////////////////
+	// Movement control
+
+public:
+	//~ Begin UMovementComponent Interface
+	virtual float GetMaxSpeed() const override;
+	//~ End UMovementComponent Interface
 
 
 	//////////////////////////////////////////////////////////////////////////
