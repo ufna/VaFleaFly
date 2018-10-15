@@ -22,3 +22,11 @@ void UVffPawnMovementComponent::TickComponent(float DeltaTime, enum ELevelTick T
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
+
+//////////////////////////////////////////////////////////////////////////
+// Debug
+
+void UVffPawnMovementComponent::DisplayDebug(class UCanvas* Canvas, const class FDebugDisplayInfo& DebugDisplay, float& YL, float& YPos)
+{
+	// @TODO
+}

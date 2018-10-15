@@ -32,9 +32,11 @@ UPawnMovementComponent* AVffPawn::GetMovementComponent() const
 
 void AVffPawn::DisplayDebug(UCanvas* Canvas, const FDebugDisplayInfo& DebugDisplay, float& YL, float& YPos)
 {
-	static FName NAME_Pawn = FName(TEXT("Pawn"));
-
 	Super::DisplayDebug(Canvas, DebugDisplay, YL, YPos);
 
-	// @TODO Debug movement component
+	static FName NAME_Movement = FName(TEXT("Movement"));
+	if (DebugDisplay.IsDisplayOn(NAME_Movement) && GetPawnMovementComponent())
+	{
+		GetPawnMovementComponent()->DisplayDebug(Canvas, DebugDisplay, YL, YPos);
+	}
 }

@@ -19,4 +19,16 @@ protected:
 	virtual void InitializeComponent() override;
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
+
+	//////////////////////////////////////////////////////////////////////////
+	// Controls and behaviours
+
+
+	//////////////////////////////////////////////////////////////////////////
+	// Debug
+
+public:
+	/** Draw debug lines to show the desired path */
+	virtual void DisplayDebug(class UCanvas* Canvas, const class FDebugDisplayInfo& DebugDisplay, float& YL, float& YPos);
+
 };
