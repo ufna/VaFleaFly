@@ -82,6 +82,8 @@ void UVffPawnMovementComponent::TickComponent(float DeltaTime, enum ELevelTick T
 void UVffPawnMovementComponent::RequestDirectMoveToLocation(const FVector& Location)
 {
 	DesiredPathPoint = Location;
+
+	UE_LOG(LogVaFleaFly, Warning, TEXT("%s: %s"), *VA_FUNC_LINE, *DesiredPathPoint.ToString());
 }
 
 
