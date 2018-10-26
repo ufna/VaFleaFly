@@ -3,6 +3,7 @@
 #pragma once
 
 #include "GameFramework/PawnMovementComponent.h"
+#include "VffSteeringBehavior.h"
 
 #include "VffPawnMovementComponent.generated.h"
 
@@ -25,7 +26,8 @@ protected:
 
 protected:
 	/**  */
-	
+	UPROPERTY()
+	TArray<FVffSteeringBehavior> Behaviors;
 
 
 	//////////////////////////////////////////////////////////////////////////
