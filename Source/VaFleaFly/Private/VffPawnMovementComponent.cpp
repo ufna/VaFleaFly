@@ -31,15 +31,15 @@ void UVffPawnMovementComponent::TickComponent(float DeltaTime, enum ELevelTick T
 		return;
 	}
 
-	// Calculate distance to current path point
-	const FVector DistVect = (DesiredPathPoint - UpdatedComponent->GetComponentLocation());
+	// Iterate throw all active behaviors
+	for(auto &Behavior : Behaviors)
+	{
+		Behavior->TickBehavior(DeltaTime, this);
+	}
 
 	// Check we have path point to follow
-	if (!DesiredPathPoint.IsZero())
+	if (!Velocity.IsNearlyZero())
 	{
-		// @TEMP
-		Velocity = DistVect.GetSafeNormal2D() * GetMaxSpeed();
-
 		// Try to make a move
 		FHitResult Hit;
 		SafeMoveUpdatedComponent(Velocity * DeltaTime, GetOwner()->GetActorRotation(), true, Hit);
@@ -59,10 +59,7 @@ void UVffPawnMovementComponent::TickComponent(float DeltaTime, enum ELevelTick T
 	else 
 	{
 		// Stop when we've reached the destination
-		if (Velocity.SizeSquared() > 0)
-		{
-			StopMovementImmediately();
-		}
+		StopMovementImmediately();
 	}
 
 	UpdateComponentVelocity();
@@ -72,8 +69,27 @@ void UVffPawnMovementComponent::TickComponent(float DeltaTime, enum ELevelTick T
 //////////////////////////////////////////////////////////////////////////
 // Steering Behavior handlers
 
+void UVffPawnMovementComponent::AddBehavior(TSharedRef<FVffSteeringBehavior> BehaviorPtr)
+{
+	UE_LOG(LogVaFleaFly, Verbose, TEXT("%s: %s. Behaviors.Num()=%d"), *VA_FUNC_LINE, *BehaviorPtr->Name.ToString(), Behaviors.Num());
 
+	// Check for duplicates and remove them if necessary
+	for(int32 i = 0; i < Behaviors.Num(); ++i)
+	{
+		auto OtherBehaviorPtr = Behaviors[i];
+		if (OtherBehaviorPtr.IsValid())
+		{
+			if (BehaviorPtr->Name == OtherBehaviorPtr->Name)
+			{
+				UE_LOG(LogVaFleaFly, Verbose, TEXT("%s: Remove duplicate with id: %d"), *VA_FUNC_LINE, i);
+				
+				Behaviors.RemoveAt(i--);
+			}
+		}
+	}
 
+	Behaviors.Add(BehaviorPtr);
+}
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -81,9 +97,9 @@ void UVffPawnMovementComponent::TickComponent(float DeltaTime, enum ELevelTick T
 
 void UVffPawnMovementComponent::RequestDirectMoveToLocation(const FVector& Location)
 {
-	DesiredPathPoint = Location;
-
-	UE_LOG(LogVaFleaFly, Warning, TEXT("%s: %s"), *VA_FUNC_LINE, *DesiredPathPoint.ToString());
+	UE_LOG(LogVaFleaFly, Warning, TEXT("%s: %s"), *VA_FUNC_LINE, *Location.ToString());
+	
+	AddBehavior(MakeShareable(new FVffBehavior_Seek(Location)));
 }
 
 

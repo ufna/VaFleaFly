@@ -24,10 +24,13 @@ protected:
 	//////////////////////////////////////////////////////////////////////////
 	// Steering Behavior handlers
 
+public:
+	/** */
+	void AddBehavior(TSharedRef<FVffSteeringBehavior> BehaviorPtr);
+
 protected:
 	/**  */
-	UPROPERTY()
-	TArray<FVffSteeringBehavior> Behaviors;
+	TArray<TSharedPtr<FVffSteeringBehavior>> Behaviors;
 
 
 	//////////////////////////////////////////////////////////////////////////
@@ -39,7 +42,7 @@ public:
 	void RequestDirectMoveToLocation(const FVector& Location);
 
 protected:
-	/** Desired destionation location */
+	/** Desired destination location */
 	FVector DesiredPathPoint;
 
 
