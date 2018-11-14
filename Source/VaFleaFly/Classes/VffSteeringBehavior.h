@@ -43,7 +43,7 @@ struct FVffBehavior_Seek : public FVffSteeringBehavior
 	
 public:
 	FVffBehavior_Seek();
-	FVffBehavior_Seek(const FVector &InDestination);
+	FVffBehavior_Seek(const FVector &InDestination, float InAcceptanceRadius = 5.f);
 	
 	virtual void TickBehavior(float DeltaTime, UVffPawnMovementComponent* MovementManager) override;
 
@@ -51,5 +51,9 @@ public:
 	/** Target location */
 	UPROPERTY(BlueprintReadWrite)
 	FVector Destination;
+
+	/** Required distance to goal to complete move */
+	UPROPERTY(BlueprintReadWrite)
+	float AcceptanceRadius; 
 
 };
